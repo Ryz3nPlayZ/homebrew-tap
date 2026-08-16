@@ -1,0 +1,58 @@
+name: Bump cask on new release
+
+on:
+  schedule:
+    # Daily at 18:00 UTC — picks up new zWork releases within a day.
+    - cron: "0 18 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for a newer zWork release
+        id: latest
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG=$(gh api repos/Ryz3nPlayZ/zWork/releases/latest --jq .tag_name)
+          VERSION=${TAG#v}
+          CURRENT=$(grep -oE 'version "[^"]+"' Casks/zwork.rb | head -1 | cut -d'"' -f2)
+          if [ -z "$VERSION" ] || [ "$VERSION" = "$CURRENT" ]; then
+            echo "new=false" >> "$GITHUB_OUTPUT"
+            echo "Cask already at latest ($CURRENT); nothing to do."
+          else
+            echo "new=true" >> "$GITHUB_OUTPUT"
+            echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+            echo "New release: $CURRENT -> $VERSION"
+          fi
+
+      - name: Download dmg, hash, and rewrite the cask
+        if: steps.latest.outputs.new == 'true'
+        run: |
+          V="${{ steps.latest.outputs.version }}"
+          curl -fsSL -o /tmp/zwork.dmg \
+            "https://github.com/Ryz3nPlayZ/zWork/releases/download/v${V}/zWork-macos-universal.dmg"
+          SHA=$(shasum -a 256 /tmp/zwork.dmg | cut -d' ' -f1)
+          if [ ${#SHA} -ne 64 ]; then
+            echo "bad sha '$SHA'" >&2; exit 1
+          fi
+          sed -i -E \
+            -e "s/version \"[^\"]+\"/version \"${V}\"/" \
+            -e "s/sha256 (\"[a-f0-9]{64}\"|:no_check)/sha256 \"${SHA}\"/" \
+            Casks/zwork.rb
+          grep -E 'version|sha256' Casks/zwork.rb
+
+      - name: Commit and push
+        if: steps.latest.outputs.new == 'true'
+        run: |
+          git config user.name "zWork release bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add Casks/zwork.rb
+          git commit -m "chore: bump zwork cask to v${{ steps.latest.outputs.version }}"
+          git push
