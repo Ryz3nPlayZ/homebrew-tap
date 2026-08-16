@@ -13,9 +13,6 @@ cask "zwork" do
     strategy :github_latest
   end
 
-  depends_on macos: ">= :high_sierra"
-  depends_on arch: :universal
-
   app "zWork.app"
 
   zap trash: [
