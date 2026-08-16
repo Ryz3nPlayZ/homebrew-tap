@@ -13,6 +13,7 @@ That's it — Homebrew adds the tap automatically. If you prefer the explicit fo
 
 ```bash
 brew tap Ryz3nPlayZ/tap
+brew trust Ryz3nPlayZ/tap   # required by newer Homebrew for third-party taps
 brew install zwork
 ```
 
