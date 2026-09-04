@@ -1,38 +1,22 @@
-# 🍺 Ryz3nPlayZ/tap
+# Ryz3nPlayZ Homebrew Tap
 
-Homebrew tap for [zWork](https://github.com/Ryz3nPlayZ/zWork) — the desktop AI agent
-that runs on your schedule and works across your apps.
+Casks for [UltraCMD](https://github.com/Ryz3nPlayZ/ultracmd).
 
 ## Install
 
-```bash
-brew install Ryz3nPlayZ/tap/zwork
+```sh
+brew tap ryz3nplayz/tap
+brew install --cask ultracmd
 ```
 
-That's it — Homebrew adds the tap automatically. If you prefer the explicit form:
+Or in one line:
 
-```bash
-brew tap Ryz3nPlayZ/tap
-brew trust Ryz3nPlayZ/tap   # required by newer Homebrew for third-party taps
-brew install zwork
+```sh
+brew install --cask ryz3nplayz/tap/ultracmd
 ```
 
-## Update
+Upgrading to a new release:
 
-```bash
-brew upgrade zwork
+```sh
+brew update && brew upgrade --cask ultracmd
 ```
-
-The cask is bumped automatically within a day of each
-[zWork release](https://github.com/Ryz3nPlayZ/zWork/releases) (or immediately via
-the [bump workflow](./actions/workflows/bump-cask.yml)).
-
-## Uninstall
-
-```bash
-brew uninstall --zap zwork   # also removes app data
-brew untap Ryz3nPlayZ/tap
-```
-
-> `--zap` removes settings, chats, and local state. It cannot remove the
-> Keychain-stored API key or macOS privacy (TCC) grants — see the app's docs.
