@@ -8,9 +8,12 @@ Homebrew tap for:
 ## Install
 
 ```bash
-brew install Ryz3nPlayZ/tap/ultracmd
+brew install Ryz3nPlayZ/tap/ultracmd --no-quarantine
 brew install Ryz3nPlayZ/tap/zwork
 ```
+
+`--no-quarantine` is recommended for UltraCMD: it is not yet notarized, and this
+skips the "Apple could not verify…" Gatekeeper prompt.
 
 Homebrew adds the tap automatically. If you prefer the explicit form:
 
