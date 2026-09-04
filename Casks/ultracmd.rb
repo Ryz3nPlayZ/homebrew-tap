@@ -8,7 +8,7 @@ cask "ultracmd" do
   desc "Native macOS command launcher & AI workspace"
   homepage "https://github.com/Ryz3nPlayZ/ultracmd"
 
-  depends_on macos: ">= :ventura"
+  depends_on macos: :ventura
   depends_on arch: :arm64
 
   app "UltraCMD.app"
