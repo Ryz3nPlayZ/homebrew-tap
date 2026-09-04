@@ -1,22 +1,34 @@
-# Ryz3nPlayZ Homebrew Tap
+# 🍺 Ryz3nPlayZ/tap
 
-Casks for [UltraCMD](https://github.com/Ryz3nPlayZ/ultracmd).
+Homebrew tap for:
+
+- **[UltraCMD](https://github.com/Ryz3nPlayZ/ultracmd)** — native macOS command launcher & AI workspace
+- **[zWork](https://github.com/Ryz3nPlayZ/zWork)** — the desktop AI agent that runs on your schedule and works across your apps
 
 ## Install
 
-```sh
-brew tap ryz3nplayz/tap
+```bash
+brew install Ryz3nPlayZ/tap/ultracmd
+brew install Ryz3nPlayZ/tap/zwork
+```
+
+Homebrew adds the tap automatically. If you prefer the explicit form:
+
+```bash
+brew tap Ryz3nPlayZ/tap
+brew trust Ryz3nPlayZ/tap   # required by newer Homebrew for third-party taps
 brew install --cask ultracmd
 ```
 
-Or in one line:
+## Update
 
-```sh
-brew install --cask ryz3nplayz/tap/ultracmd
+```bash
+brew update && brew upgrade --cask ultracmd
 ```
 
-Upgrading to a new release:
+## Uninstall
 
-```sh
-brew update && brew upgrade --cask ultracmd
+```bash
+brew uninstall --cask ultracmd
+brew untap Ryz3nPlayZ/tap
 ```
