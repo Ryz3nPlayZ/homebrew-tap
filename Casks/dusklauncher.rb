@@ -1,9 +1,9 @@
 cask "dusklauncher" do
   arch arm: "aarch64", intel: "x64"
 
-  version "0.2.2"
-  sha256 arm:   "407d4ebe0659c6600bfc0696ff5d2349a8b9f30fedb2c701ea99c5ef54cdea8a",
-         intel: "e9a62219c744f30a044fb59fcd17400093b15369e799a1f20780f6ee014a45f7"
+  version "0.3.0"
+  sha256 arm:   "4934a1144348fcd06b6b81ce923a8526db15e4df1bc872a69c7b00d6371782dc",
+         intel: "9d17e20f25e5e05ca0713fefcd7961dabc1dbe25aa49b96c072d94646185bf49"
 
   url "https://github.com/ryz3nplayz/dusklauncher/releases/download/v#{version}/DuskLauncher_#{version}_#{arch}.dmg"
   name "DuskLauncher"
@@ -31,7 +31,9 @@ cask "dusklauncher" do
   end
 
   zap trash: [
-    "~/Library/Application Support/app.tryzwork.dusklauncher",
+    # app data dir (dirs::data_dir()/FasterLauncher — see appstate.rs), not
+    # the bundle id; Caches/WebKit below ARE keyed by the bundle id.
+    "~/Library/Application Support/FasterLauncher",
     "~/Library/Caches/app.tryzwork.dusklauncher",
     "~/Library/WebKit/app.tryzwork.dusklauncher",
   ]
