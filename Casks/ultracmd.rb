@@ -1,36 +1,34 @@
 cask "ultracmd" do
-  version "1.0.0"
-  sha256 "64c9fcb3165f60799203d9a17e799d1a57caf18898f9af65d396c399a21c795f"
+  version "1.1.0"
+  sha256 "f23c3b8e6cc5ad545e1a0f708ccf2abbff4d740111087109c1c3d7ed4f13ff6a"
 
-  url "https://github.com/Ryz3nPlayZ/ultracmd/releases/download/v#{version}/UltraCMD.dmg"
+  url "https://github.com/Ryz3nPlayZ/ultracmd/releases/download/v#{version}/UltraCMD-#{version}.dmg"
   name "UltraCMD"
-  desc "Native macOS command launcher & AI workspace"
+  desc "Native macOS launcher: apps, clipboard, snippets, windows, Raycast extensions"
   homepage "https://github.com/Ryz3nPlayZ/ultracmd"
-
-  depends_on macos: :ventura
-  depends_on arch: :arm64
 
   livecheck do
     url "https://github.com/Ryz3nPlayZ/ultracmd/releases"
     strategy :github_latest
   end
 
-
-  # Not notarized (no Apple Developer Program yet): Homebrew always
-  # quarantines cask downloads on modern versions and Gatekeeper blocks the
-  # first launch with "Apple could not verify…". Clearing the flag here makes
-  # the same explicit trust decision the curl installer documents. Delete
-  # this block once builds are Developer ID signed + notarized.
-  postflight do
-    system_command "/usr/bin/xattr",
-                   args: ["-dr", "com.apple.quarantine", "#{appdir}/UltraCMD.app"]
-  end
+  # The app installs its own updates, so brew must not report it outdated or roll it back.
+  auto_updates true
+  depends_on arch: :arm64
+  # macOS 26 is the only release the app builds for or runs on.
+  depends_on macos: :tahoe
 
   app "UltraCMD.app"
 
+  # Homebrew quarantines each download and --no-quarantine is gone; unnotarized, Gatekeeper blocks.
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{appdir}}/UltraCMD.app"],
+                          writable_paths: ["UltraCMD.app"], writable_base: :appdir
+  end
+
   zap trash: [
-    "~/Library/Application Support/ultracmd",
-    "~/Library/Preferences/com.ultracmd.app.plist",
+    "~/Library/Application Support/com.ultracmd.app",
     "~/Library/Caches/com.ultracmd.app",
+    "~/Library/Preferences/com.ultracmd.app.plist",
   ]
 end
