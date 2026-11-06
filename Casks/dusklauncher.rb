@@ -1,9 +1,9 @@
 cask "dusklauncher" do
   arch arm: "aarch64", intel: "x64"
 
-  version "0.7.24"
-  sha256 arm:   "d983e55b40f69359a7cfc182f66aaacc450e74df01ecb923447f5b357a9dc5f8",
-         intel: "7e2480bc1422ab0ed158d2aa76fee0582bb3e02dd53c03d1adab1ad533725d15"
+  version "0.7.25"
+  sha256 arm:   "f9d82fb581f84128987845e642742671e030d3262697c6662d2a598bf6e1c4d2",
+         intel: "939ba20eba4bb713ddbb11e5a87a50a010566e4e062fb74eff5e49abc41d4ec4"
 
   url "https://github.com/ryz3nplayz/dusklauncher/releases/download/v#{version}/DuskLauncher_#{version}_#{arch}.dmg"
   name "DuskLauncher"
