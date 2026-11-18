@@ -1,6 +1,6 @@
 cask "zwork" do
-  version "0.6.0"
-  sha256 "2882068c071d7d8900a6946f20916df884a8d30fa6dc49fb94a41388820c462e"
+  version "0.6.1"
+  sha256 "957ae81ad2898fc1a6170ec187be55548be3f32e28558cccd6d858e80507ab40"
 
   url "https://github.com/Ryz3nPlayZ/zWork/releases/download/v#{version}/zWork-macos-universal.dmg",
       verified: "github.com/Ryz3nPlayZ/zWork/"
